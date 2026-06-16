@@ -11,7 +11,7 @@ plugins {
 
 rootProject.name = 'cdk-parent'
 
-include 'cdk'
+include 'cdk-core'
 include 'cdk-bom'
 
 enableFeaturePreview 'TYPESAFE_PROJECT_ACCESSORS'

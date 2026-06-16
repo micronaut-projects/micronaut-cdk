@@ -27,7 +27,7 @@ on:
       - '.github/scripts/vulnerability-audit-filter.py'
 jobs:
   audit:
-    if: github.repository != 'micronaut-projects/micronaut-cdk'
+    if: github.repository != 'micronaut-projects/micronaut-project-template'
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -7,7 +7,7 @@ name: Publish snapshot release
 on: [workflow_dispatch]
 jobs:
   build:
-    if: github.repository != 'micronaut-projects/micronaut-cdk'
+    if: github.repository != 'micronaut-projects/micronaut-project-template'
     runs-on: ubuntu-latest
     steps:
       - name: Remove system JDKs

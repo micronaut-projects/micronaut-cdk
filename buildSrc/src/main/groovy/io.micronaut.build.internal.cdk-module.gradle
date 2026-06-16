@@ -1,0 +1,7 @@
+plugins {
+    id 'io.micronaut.build.internal.cdk-base'
+    id "io.micronaut.build.internal.module"
+}
+micronautBuild {
+    binaryCompatibility.enabledAfter("1.0.0")
+}

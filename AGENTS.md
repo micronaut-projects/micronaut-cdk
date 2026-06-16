@@ -4,9 +4,9 @@ This repository is the Micronaut template for generated module repositories. Kee
 
 ## Repository Shape
 
-- `project-template/` is the generated module placeholder. Changes here should make sense after `template-cleanup.yml` renames it to `micronaut-<slug>/`.
-- `project-template-bom/` is the generated BOM placeholder. Keep dependency-management changes separate from module implementation changes when possible.
-- `buildSrc/src/main/groovy/io.micronaut.build.internal.project-template-*.gradle` contains template convention plugins that are also renamed by the cleanup workflow.
+- `cdk/` is the generated module placeholder. Changes here should make sense after `template-cleanup.yml` renames it to `micronaut-<slug>/`.
+- `cdk-bom/` is the generated BOM placeholder. Keep dependency-management changes separate from module implementation changes when possible.
+- `buildSrc/src/main/groovy/io.micronaut.build.internal.cdk-*.gradle` contains template convention plugins that are also renamed by the cleanup workflow.
 - `.agents/skills/` is shared agent guidance. Skill changes are validated by `.github/workflows/skills-validation.yml`.
 
 ## Template And Sync Rules

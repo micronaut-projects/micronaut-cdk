@@ -20,10 +20,21 @@ package cdk.security;
  */
 public final class UserInfoHolder {
 
-    private static final ThreadLocal<UserInfo> HOLDER = new InheritableThreadLocal<>();
+    private static final ThreadLocal<UserInfo> HOLDER = new ThreadLocal<>();
 
     private UserInfoHolder() {
         // static only
+    }
+
+    /**
+     * Set the current info for the duration of a scoped operation and clear it afterwards.
+     *
+     * @param userInfo info to set for the scope
+     * @return an {@link AutoCloseable} that removes the info when closed
+     */
+    public static AutoCloseable withUserInfo(UserInfo userInfo) {
+        HOLDER.set(userInfo);
+        return HOLDER::remove;
     }
 
     /**

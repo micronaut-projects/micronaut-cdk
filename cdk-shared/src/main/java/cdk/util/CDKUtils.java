@@ -78,7 +78,7 @@ public final class CDKUtils {
     public static String resolveTilde(@NonNull String path) {
         path = Objects.requireNonNull(path).trim();
         if (path.startsWith("~")) {
-            path = path.replace("~", System.getProperty("user.home"));
+            path = System.getProperty("user.home") + path.substring(1);
         }
         return path;
     }

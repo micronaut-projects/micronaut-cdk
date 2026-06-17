@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cdk.security;
+package io.micronaut.cdk.security;
 
-import cdk.Cloud;
+import io.micronaut.cdk.Cloud;
 import io.micronaut.core.annotation.NonNull;
 
 /**

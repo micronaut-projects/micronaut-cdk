@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cdk.util;
+package io.micronaut.cdk.util;
 
 import io.micronaut.core.annotation.NonNull;
 import org.slf4j.ILoggerFactory;

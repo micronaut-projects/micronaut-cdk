@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cdk.security;
+package io.micronaut.cdk.security;
 
 /**
  * Thread-local holder for the current {@link UserInfo}.

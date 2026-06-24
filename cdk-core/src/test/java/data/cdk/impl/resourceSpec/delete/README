@@ -1,0 +1,12 @@
+These classes test how the ComponentSpecProcessor generates the DeleteSpec.Builder 
+registrations.
+
+Two styles of the DeleteSpec.Builder are supported: 
+- fully generified 
+- without (much of) generics
+
+The annotation processor should work for both forms, and should recognize 
+deleteBuilder() and builder() methods on *Spec and *DeleteSpec respectively.
+
+TestResource2Spec is intentionally implemented as an abstract class that identifies its Delete spec 
+and that definition is inherited into concrete subclasses. This inheritance is checked by tests.

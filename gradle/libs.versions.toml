@@ -19,8 +19,18 @@
 micronaut = "5.0.2"
 micronaut-docs = "3.0.0"
 micronaut-test = "4.6.2"
-groovy = "4.0.24"
+groovy = "4.0.28"
 spock = "2.3-groovy-4.0"
+awaitility = "4.2.2"
+embedded-redis = "1.4.3"
+jsch = "0.2.21"
+plugin-artifactory = "6.0.2"
+plugin-micronaut = "4.4.4"
+plugin-shadow = "8.3.5"
+plugin-spotless = "6.25.0"
+plugin-test-logger = "4.0.0"
+rocker-lib = "2.4.0"
+rocker-plugin = "3.3"
 
 # Managed versions appear in the BOM
 # managed-somelib = "1.0"
@@ -29,6 +39,7 @@ spock = "2.3-groovy-4.0"
 [libraries]
 # Core
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
+micronaut-platform = { module = "io.micronaut.platform:micronaut-platform", version.ref = "micronaut" }
 
 #
 # Managed dependencies appear in the BOM
@@ -42,9 +53,23 @@ micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'mi
 
 # Other libraries used by the project but non managed
 
+awaitility = { module = "org.awaitility:awaitility", version.ref = "awaitility" }
+embedded-redis = { module = "com.github.codemonstur:embedded-redis", version.ref = "embedded-redis" }
+jsch = { module = "com.github.mwiede:jsch", version.ref = "jsch" } # using a fork since com.jcraft:jsch doesn't support OPENSSH format, see https://stackoverflow.com/questions/53134212/invalid-privatekey-when-using-jsch
+plugin-artifactory = { module = "com.jfrog.artifactory:com.jfrog.artifactory.gradle.plugin", version.ref = "plugin-artifactory" }
+plugin-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref = "plugin-micronaut" }
+plugin-shadow = { module = "com.gradleup.shadow:com.gradleup.shadow.gradle.plugin", version.ref = "plugin-shadow" }
+plugin-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "plugin-spotless" }
+plugin-test-logger = { module = "com.adarshr:gradle-test-logger-plugin", version.ref = "plugin-test-logger" }
+rocker = { module = "com.fizzed:rocker-compiler", version.ref = "rocker-lib" }
+rocker-plugin = { module = "nu.studer.rocker:nu.studer.rocker.gradle.plugin", version.ref = "rocker-plugin" }
+spock = { module = "org.spockframework:spock-core", version.ref = "spock" }
+spock-bom = { module = "org.spockframework:spock-bom", version.ref = "spock" }
+
 # micronaut-bom = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
 # jdoctor = { module = "me.champeau.jdoctor:jdoctor-core", version.ref="jdoctor" }
 
 [bundles]
 
 [plugins]
+rocker = { id = "nu.studer.rocker", version.ref = "rocker-plugin" }

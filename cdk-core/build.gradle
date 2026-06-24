@@ -1,0 +1,54 @@
+plugins {
+    id("io.micronaut.build.internal.cdk-codegen")
+}
+
+dependencies {
+    annotationProcessor mnPlatform.micronaut.validation.processor
+    annotationProcessor mnPlatform.micronaut.data.processor
+    annotationProcessor mnPlatform.micronaut.serde.processor
+    api libs.jsch
+    api mnPlatform.lettuce
+    api mnPlatform.micronaut.data.jdbc
+    api mnPlatform.micronaut.retry
+    api mnPlatform.micronaut.serde.jackson
+    api mnPlatform.micronaut.validation
+    api projects.micronautCdkShared
+
+    implementation libs.rocker
+
+    testAnnotationProcessor project(':micronaut-cdk-core')
+    testAnnotationProcessor mnPlatform.micronaut.data.processor
+    testAnnotationProcessor mnPlatform.micronaut.inject.java
+    testImplementation projects.micronautCdkTest
+    testImplementation libs.embedded.redis
+    testImplementation libs.awaitility
+    testImplementation mnPlatform.micronaut.jdbc.hikari
+    testRuntimeOnly mnPlatform.h2
+}
+
+configurations.configureEach {
+    if (name.startsWith("test")) {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.apache.groovy") {
+                useVersion(libs.versions.groovy.get())
+                because("Spock 2.3 is compiled for Groovy 4")
+            }
+        }
+    }
+}
+
+rocker {
+    configurations {
+        main {
+            templateDir = file('src/main/resources')
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.errorprone.disable("NullAway")
+}
+
+tasks.named("checkstyleMain", Checkstyle) {
+    source = fileTree("src/main/java")
+}

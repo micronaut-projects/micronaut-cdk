@@ -1,0 +1,15 @@
+plugins {
+    id("io.micronaut.build.internal.cdk-module")
+}
+
+System.setProperty("spock.iKnowWhatImDoing.disableGroovyVersionCheck", "true")
+
+dependencies {
+    api mnTest.micronaut.test.spock
+    api libs.spock
+    api projects.micronautCdkShared
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    groovyOptions.forkOptions.jvmArgs.add("-Dspock.iKnowWhatImDoing.disableGroovyVersionCheck=true")
+}

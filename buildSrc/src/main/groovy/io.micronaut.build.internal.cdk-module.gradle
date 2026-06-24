@@ -4,4 +4,7 @@ plugins {
 }
 micronautBuild {
     binaryCompatibility.enabledAfter("1.0.0")
+    descriptor {
+        parentModuleId = "io.micronaut.cdk:micronaut-cdk-shared"
+    }
 }

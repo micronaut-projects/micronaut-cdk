@@ -1,0 +1,66 @@
+
+@import java.util.List;
+
+@args (
+    String packageName,
+    String specName,
+    String specQName,
+    boolean specGenerics,
+    String cloudEnum,
+    List<String> properties,
+    List<String> properties2
+)
+
+package @packageName;
+
+import io.micronaut.cdk.action.SpecReferenceProvider;
+import io.micronaut.cdk.annotations.CloudSpecific;
+import io.micronaut.cdk.command.ActionService;
+import io.micronaut.cdk.component.ComponentReference;
+import io.micronaut.cdk.impl.CdkImplUtils;
+import io.micronaut.cdk.Cloud;
+import @(specQName);
+import @specQName;
+
+import java.util.Collection;
+import jakarta.inject.Singleton;
+
+@@CloudSpecific(Cloud.@(cloudEnum))
+@@ActionService(@(specName).class)
+@@Singleton
+@if (specGenerics) {
+public class @(specName)ReferencesImpl<S extends @(specName)<S>> implements SpecReferenceProvider<S>
+} else {
+public class @(specName)ReferencesImpl<S extends @(specName)> implements SpecReferenceProvider<S>
+}
+{
+    @@Override
+    public Collection<ComponentReference> findReferences(S spec) {
+        @if (!properties.isEmpty() && !properties2.isEmpty()) {
+            return CdkImplUtils.addReferences(
+                CdkImplUtils.addReferences(null
+                    @for (int i = 0; i < properties2.size(); i++) {
+                        , spec.@(properties2.get(i))()
+                    }
+                )
+                @for (int i = 0; i < properties.size(); i++) {
+                    , spec.@(properties.get(i))()
+                }
+            );
+        } else if (!properties.isEmpty()) {
+            return CdkImplUtils.addReferences(null
+            @for (int i = 0; i < properties.size(); i++) {
+                , spec.@(properties.get(i))()
+            }
+            );
+        } else if (!properties2.isEmpty()) {
+            return CdkImplUtils.addReferences(null
+            @for (int i = 0; i < properties2.size(); i++) {
+                , spec.@(properties2.get(i))()
+            }
+            );
+        } else {
+            return java.util.List.of();
+        }
+    }
+}

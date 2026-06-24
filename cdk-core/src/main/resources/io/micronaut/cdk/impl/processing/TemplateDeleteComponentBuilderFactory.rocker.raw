@@ -1,0 +1,83 @@
+@import io.micronaut.cdk.impl.processing.MethodInfo
+@import java.util.Map
+
+@args ( String packageName,
+        String cloudID, String cloudName, String componentQN, String componentName, String specQN, String specName,
+        String deleteSpecQN, String deleteSpecName,
+        MethodInfo compSpec, MethodInfo comp, MethodInfo spec, MethodInfo cdkId,
+        String generatedClassName, boolean factoryGenerics,
+        String specTypes
+)
+
+@*
+    DeleteSpec.Builder factory template.
+    Uses a *deleteBuilder() method in the Spec class or *builder() on DeleteSpec class, that accepts a Component itself.
+    Optionally accepts (String id, boolean byCdkId) for manual creation.
+*@
+
+package @packageName;
+
+import io.micronaut.cdk.Cloud;
+import io.micronaut.cdk.annotations.ComponentService;
+import io.micronaut.cdk.annotations.CloudSpecific;
+import io.micronaut.cdk.action.Spec;
+import io.micronaut.cdk.action.delete.DeleteSpec;
+import @deleteSpecQN;
+import @specQN;
+import io.micronaut.cdk.component.Component;
+import @componentQN;
+import io.micronaut.cdk.action.DeleteComponentBuilderFactory;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import javax.annotation.processing.Generated;
+
+@if (cloudID != null) {
+@@CloudSpecific(Cloud.@cloudID)
+}
+@@ComponentService(@(componentName).class)
+@@Named("@specQN")
+@@Singleton
+@@Generated("cdk-resource-spec")
+@if (factoryGenerics) {
+public class @(generatedClassName)<S extends @(specName)<@(specTypes)>, N, C extends @(componentName)<N>, D extends @(deleteSpecName)<D>, B extends @(deleteSpecName).Builder<D, B>> implements DeleteComponentBuilderFactory<S, D, B, N, C> {
+    @@Override
+    public B deleteBuilder(C component, S spec) {
+        @if (compSpec != null) {
+            return (B)@(compSpec.factoryClass()).@(compSpec.methodName())(component, spec);
+        }
+        @if (spec != null) {
+            if (spec != null) {
+                return (B)@(spec.factoryClass()).@(spec.methodName())(spec);
+            }
+        }
+        @if (comp != null) {
+            return (B)@(comp.factoryClass()).@(comp.methodName())(component);
+        } else if (cdkId != null) {
+            return (B)@(cdkId.factoryClass()).@(cdkId.methodName())(component.getCloudId(), false);
+        } else {
+            return null;
+        }
+    }
+}
+} else {
+public class @(generatedClassName)<S extends @(specName), N, C extends @(componentName)<N>> implements DeleteComponentBuilderFactory<@(specName), @(deleteSpecName), @(deleteSpecName).Builder, N, C> {
+    @@Override
+    public @(deleteSpecName).Builder deleteBuilder(C component, @(specName) spec) {
+        @if (compSpec != null) {
+            return @(compSpec.factoryClass()).@(compSpec.methodName())(component, spec);
+        }
+        @if (spec != null) {
+            if (spec != null) {
+                return @(spec.factoryClass()).@(spec.methodName())(spec);
+            }
+        }
+        @if (comp != null) {
+            return @(comp.factoryClass()).@(comp.methodName())(component);
+        } else if (cdkId != null) {
+            return @(cdkId.factoryClass()).@(cdkId.methodName())(component.getCloudId(), false);
+        } else {
+            return null;
+        }
+    }
+}
+}

@@ -1,0 +1,30 @@
+plugins {
+    id 'io.micronaut.build.internal.cdk-module'
+    id 'nu.studer.rocker'
+}
+
+tasks.named('sourcesJar') {
+    dependsOn tasks.named('compileRocker')
+}
+
+String rockerOutputDir = 'build/generated-src/rocker'
+
+rocker {
+    version = libs.versions.rocker.lib.get()
+    configurations {
+        main {
+            discardLogicWhitespace = true
+            markAsGenerated = true
+            optimize = true
+            outputDir = file(rockerOutputDir)
+            // templateDir is set in build.gradle for modules that use this
+        }
+    }
+}
+
+javadoc {
+    source = sourceSets.main.allJava.matching {
+        // replace resolved sources with a filter.
+        exclude { it.file.toString().contains(rockerOutputDir) }
+    }
+}

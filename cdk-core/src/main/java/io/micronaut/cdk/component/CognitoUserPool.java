@@ -1,0 +1,39 @@
+/*
+ * Copyright 2017-2026 original authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.micronaut.cdk.component;
+
+import io.micronaut.core.annotation.NonNull;
+
+/**
+ * Represents an existing CognitoUserPool.
+ *
+ * @param <N> the cloud CognitoUserPool type
+ */
+public class CognitoUserPool<N> extends Component<N> {
+
+    /**
+     * Constructor.
+     *
+     * @param cloudComponent the cloud component
+     * @param cloudId        the cloud ID
+     * @param cdkId          CDK ID
+     */
+    public CognitoUserPool(@NonNull N cloudComponent,
+                           @NonNull String cloudId,
+                           @NonNull String cdkId) {
+        super(cloudComponent, cloudId, cdkId);
+    }
+}

@@ -12,11 +12,15 @@ plugins {
 rootProject.name = 'cdk-parent'
 
 include 'cdk-shared'
+include 'cdk-core'
+include 'cdk-test'
 include 'cdk-bom'
 
 
 enableFeaturePreview 'TYPESAFE_PROJECT_ACCESSORS'
 
 micronautBuild {
+    useStandardizedProjectNames = true
     importMicronautCatalog()
+    importMicronautCatalog("micronaut-platform")
 }

@@ -1,0 +1,2 @@
+io.micronaut.cdk.impl.processing.ResourceSpecProcessor
+io.micronaut.cdk.impl.processing.SpecReferencesProcessor
